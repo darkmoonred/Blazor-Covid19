@@ -1,0 +1,21 @@
+﻿@page "/"
+@using PieChartBlazor.Data;
+@inject IJSRuntime jsRunTime; 
+
+<h1>Blazor Pie Chart</h1>
+
+<div id="chartdiv"></div>
+
+<button class="btn btn-primary" @onclick="GeneratePieChartBlazor">Generate Pie Chart</button>
+
+@code {
+    CountryInfo countryInfo = new CountryInfo();
+    List<CountryInfo> countryInfos = new List<CountryInfo>();
+
+    private async Task GeneratePieChartBlazor()
+    {
+        countryInfos = countryInfo.GetCountryInfos();
+        await jsRunTime.InvokeVoidAsync("GeneratePieChart", countryInfos);
+    }
+
+}
